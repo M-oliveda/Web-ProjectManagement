@@ -37,7 +37,7 @@ function CreateProjectModal({
   return (
     <>
       <Modal show={isOpen} onClose={() => setIsOpen(false)}>
-        <Modal.Header>Terms of Service</Modal.Header>
+        <Modal.Header>Create Project</Modal.Header>
         <Modal.Body>
           <form
             className="flex max-w-md flex-col gap-4"
@@ -121,7 +121,7 @@ function UpdateProjectModal({
   return (
     <>
       <Modal show={isOpen} onClose={() => setIsOpen(false)}>
-        <Modal.Header>Terms of Service</Modal.Header>
+        <Modal.Header>Update Project</Modal.Header>
         <Modal.Body>
           <form
             className="flex max-w-md flex-col gap-4"
