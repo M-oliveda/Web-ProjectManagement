@@ -4,6 +4,8 @@ import { StrictMode } from "react";
 import RegisterPage from "../pages/register";
 import LoginPage from "../pages/login";
 import HomePage from "../pages/home";
+import ProfilePage from "../pages/profile";
+import { CheckoutForm, Return } from "../pages/Stripe";
 import UserContextProvider from "./UserContextProvider";
 import RootLayout from "../pages/layout";
 
@@ -23,6 +25,18 @@ const routes = createBrowserRouter([
       {
         path: "/",
         element: <HomePage />,
+      },
+      {
+        path: "/profile",
+        element: <ProfilePage />,
+      },
+      {
+        path: "/checkout",
+        element: <CheckoutForm />,
+      },
+      {
+        path: "/return",
+        element: <Return />,
       },
     ],
   },

@@ -25,6 +25,12 @@ export default function WebsiteHeader() {
           <Navbar.Link href="/" active={location.pathname === "/"}>
             Home
           </Navbar.Link>
+          <Navbar.Link
+            href="/profile"
+            active={location.pathname === "/profile"}
+          >
+            Profile
+          </Navbar.Link>
           <div className="mx-auto my-1.5">
             <Button onClick={logoutHandler}>Logout</Button>
           </div>
