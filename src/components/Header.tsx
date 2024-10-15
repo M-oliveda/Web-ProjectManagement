@@ -37,6 +37,9 @@ export default function WebsiteHeader() {
           >
             Projects
           </Navbar.Link>
+          <Navbar.Link href="/tasks" active={location.pathname === "/tasks"}>
+            Tasks
+          </Navbar.Link>
           <div className="mx-auto my-1.5">
             <Button onClick={logoutHandler}>Logout</Button>
           </div>
