@@ -8,6 +8,7 @@ import ProfilePage from "../pages/profile";
 import { CheckoutForm, Return } from "../pages/Stripe";
 import UserContextProvider from "./UserContextProvider";
 import RootLayout from "../pages/layout";
+import ProjectsPage from "../pages/projects";
 
 const routes = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const routes = createBrowserRouter([
       {
         path: "/return",
         element: <Return />,
+      },
+      {
+        path: "/projects",
+        element: <ProjectsPage />,
       },
     ],
   },

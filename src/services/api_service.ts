@@ -178,3 +178,107 @@ export async function unsubscribeUser(userEmail: string) {
 
   return false;
 }
+
+export async function getProjects() {
+  const token = get_access_token();
+
+  if (!token) {
+    return false;
+  }
+
+  const apiResult = await fetch(`${apiServiceURL}/api/v1/projects`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token,
+    },
+  });
+
+  if (apiResult.status === 200) {
+    const data = await apiResult.json();
+    return data;
+  }
+
+  return false;
+}
+
+export async function addNewProject(name: string, description: string) {
+  const token = get_access_token();
+
+  if (!token) {
+    return false;
+  }
+
+  const apiResult = await fetch(`${apiServiceURL}/api/v1/projects/new`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token,
+    },
+    body: JSON.stringify({ name: name, description: description }),
+  });
+
+  if (apiResult.status === 200) {
+    const data = await apiResult.json();
+    return data;
+  }
+
+  return false;
+}
+
+export async function deleteProject(project_id: string) {
+  const token = get_access_token();
+
+  if (!token) {
+    return false;
+  }
+
+  const apiResult = await fetch(
+    `${apiServiceURL}/api/v1/projects/${project_id}`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    },
+  );
+
+  if (apiResult.status === 200) {
+    const data = await apiResult.json();
+    return data;
+  }
+
+  return false;
+}
+
+export async function updateProject(
+  project_id: string,
+  name: string,
+  description: string,
+) {
+  const token = get_access_token();
+
+  if (!token) {
+    return false;
+  }
+
+  const apiResult = await fetch(
+    `${apiServiceURL}/api/v1/projects/${project_id}`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+      body: JSON.stringify({ name: name, description: description }),
+    },
+  );
+
+  if (apiResult.status === 200) {
+    const data = await apiResult.json();
+    return data;
+  }
+
+  return false;
+}
