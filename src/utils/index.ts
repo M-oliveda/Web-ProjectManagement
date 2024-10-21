@@ -1,4 +1,4 @@
-export function get_access_token() {
+export function getAccesToken() {
   if (localStorage.getItem("token")) {
     return localStorage.getItem("token");
   } else {
@@ -6,7 +6,7 @@ export function get_access_token() {
   }
 }
 
-export function remove_access_token() {
+export function removeAccesToken() {
   if (localStorage.getItem("token")) {
     localStorage.removeItem("token");
     return;
