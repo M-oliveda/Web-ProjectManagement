@@ -3,30 +3,27 @@ import {
   EmbeddedCheckoutProvider,
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { getStripeSessionStatus, subscribe } from "../services/api_service";
+import {
+  getStripeSessionStatus,
+  subscribe,
+} from "../services/subscriptionservice";
 import { useCallback, useEffect, useState } from "react";
 import { SubscriptionType } from "../types/SubscriptionType";
 import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
 
-const stripePromise = loadStripe(
-  "pk_test_51Q8hVJP5Fx2fTHDkXpQAG2i4sRSjTWwMEEsmvpKODDYRXvN5fHnfNHVrLfb4cfOvzHMBFJQbkexrhQgCbRibSwty00NoIHjlP9",
-);
+const stripeSecretKey = import.meta.env.VITE_STRIPE_SECRET_KEY || null;
 
-const subscriptionInfo = {
-  subscriptionType: "",
-};
+const stripePromise = loadStripe(stripeSecretKey);
 
 export function CheckoutForm() {
   const [searchParams, setSearchParams] = useSearchParams();
   const subscriptionType = searchParams.get("subscription_type");
 
   const fetchClientSecret = useCallback(async () => {
-    console.log(subscriptionType);
     if (!subscriptionType) {
       return;
     }
     return subscribe(subscriptionType as SubscriptionType).then((data) => {
-      console.log(data);
       if (data && typeof data !== "boolean" && data.client_secret) {
         console.log(data);
         return data.client_secret;

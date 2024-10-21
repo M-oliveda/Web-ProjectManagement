@@ -4,7 +4,7 @@ import {
   deleteProject,
   getProjects,
   updateProject,
-} from "../services/api_service";
+} from "../services/projectsservice";
 import { Button, Label, TextInput, Modal } from "flowbite-react";
 import { TableComponent } from "../components/Table";
 import { UserContext } from "../context/UserContext";
@@ -19,6 +19,7 @@ function CreateProjectModal({
 }) {
   const projectDescriptionRef = useRef(null);
   const projectNameRef = useRef(null);
+  const navigate = useNavigate();
 
   function createProjectHandler(e) {
     e.preventDefault();
@@ -29,6 +30,7 @@ function CreateProjectModal({
       ).then((value) => {
         if (value && typeof value !== "boolean") {
           setIsOpen(false);
+          navigate(0);
         }
       });
     }
@@ -50,7 +52,7 @@ function CreateProjectModal({
               <TextInput
                 id="projectName"
                 type="text"
-                placeholder="Project name."
+                placeholder="Project name"
                 required
                 ref={projectNameRef}
               />
@@ -65,7 +67,7 @@ function CreateProjectModal({
               <TextInput
                 id="projectDescription"
                 type="text"
-                placeholder="Project name."
+                placeholder="Project description"
                 required
                 ref={projectDescriptionRef}
               />
@@ -102,6 +104,7 @@ function UpdateProjectModal({
 }) {
   const projectDescriptionRef = useRef(null);
   const projectNameRef = useRef(null);
+  const navigate = useNavigate();
 
   function updateProjectHandler(e) {
     e.preventDefault();
@@ -113,6 +116,7 @@ function UpdateProjectModal({
       ).then((value) => {
         if (value && typeof value !== "boolean") {
           setIsOpen(false);
+          navigate(0);
         }
       });
     }
@@ -134,7 +138,7 @@ function UpdateProjectModal({
               <TextInput
                 id="projectName"
                 type="text"
-                placeholder="Project name."
+                placeholder="Project name"
                 required
                 ref={projectNameRef}
                 value={name}
@@ -150,7 +154,7 @@ function UpdateProjectModal({
               <TextInput
                 id="projectDescription"
                 type="text"
-                placeholder="Project name."
+                placeholder="Project description."
                 required
                 ref={projectDescriptionRef}
                 value={description}

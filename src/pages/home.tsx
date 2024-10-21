@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import { getUserInfo } from "../services/api_service";
+import { getUserInfo } from "../services/authservice";
 import { UserData } from "../types/UserData";
 
 export default function HomePage() {

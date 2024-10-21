@@ -1,7 +1,7 @@
-import { Button, Label, TextInput } from "flowbite-react";
-import { useRef, FormEvent } from "react";
+import { Alert, Button, Label, TextInput } from "flowbite-react";
+import { useRef, FormEvent, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { registerUser } from "../services/api_service";
+import { registerUser } from "../services/authservice";
 import Logo from "../components/Logo";
 
 export default function RegisterPage() {
@@ -10,6 +10,16 @@ export default function RegisterPage() {
   const password2ref = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
 
+  const [alert, setAlert] = useState<null | { message: string }>(null);
+
+  useEffect(() => {
+    if (alert) {
+      setTimeout(() => {
+        setAlert(null);
+      }, 1000);
+    }
+  }, [alert]);
+
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
@@ -17,11 +27,15 @@ export default function RegisterPage() {
       if (passwordRef.current.value === password2ref.current.value) {
         registerUser(emailRef.current.value, passwordRef.current.value).then(
           (value) => {
-            if (value) {
+            if (value && typeof value === "boolean") {
               navigate("/");
+            } else {
+              setAlert({ message: value });
             }
           },
         );
+      } else {
+        setAlert({ message: "Passwords do not match" });
       }
     }
   }
@@ -30,6 +44,7 @@ export default function RegisterPage() {
     <div className="flex h-screen items-center justify-center">
       <div className="space-y-6">
         <Logo />
+        {alert && <Alert color="failure">{alert.message}</Alert>}
         <form className="flex max-w-md flex-col gap-4" onSubmit={handleSubmit}>
           <div>
             <div className="mb-2 block">

@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { Button } from "flowbite-react";
 import Subscribe from "../components/Subscribe";
-import { unsubscribeUser } from "../services/api_service";
+import { unsubscribeUser } from "../services/subscriptionservice";
 import { useNavigate } from "react-router-dom";
 
 export default function ProfilePage() {
@@ -13,7 +13,7 @@ export default function ProfilePage() {
     if (userContext && userContext.userInfo) {
       unsubscribeUser(userContext.userInfo.email).then((value) => {
         if (value) {
-          navigate("/profile");
+          navigate(0);
         }
       });
     }

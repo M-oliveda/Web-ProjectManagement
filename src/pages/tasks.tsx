@@ -2,10 +2,10 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import {
   createTask,
   deleteTask,
-  getProjects,
   getTasks,
   updateTask,
-} from "../services/api_service";
+} from "../services/tasksservice";
+import { getProjects } from "../services/projectsservice";
 import { Button, Label, TextInput, Modal, Select, Radio } from "flowbite-react";
 import { TableComponent } from "../components/Table";
 import { UserContext } from "../context/UserContext";
