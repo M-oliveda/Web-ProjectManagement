@@ -1,22 +1,6 @@
+import { getAccesToken, removeAccesToken } from "../utils";
+
 const apiServiceURL = import.meta.env.VITE_API_SERVICE_URL || "localhost:8000";
-
-export function get_access_token() {
-  if (localStorage.getItem("token")) {
-    return localStorage.getItem("token");
-  } else {
-    return sessionStorage.getItem("token");
-  }
-}
-
-function remove_access_token() {
-  if (localStorage.getItem("token")) {
-    localStorage.removeItem("token");
-    return;
-  } else {
-    sessionStorage.removeItem("token");
-    return;
-  }
-}
 
 export async function registerUser(
   email: string,
@@ -72,12 +56,12 @@ export async function loginUser(
 }
 
 export async function logoutUser() {
-  remove_access_token();
+  removeAccesToken();
   return true;
 }
 
 export async function getUserInfo() {
-  const token = get_access_token();
+  const token = getAccesToken();
 
   if (!token) {
     return false;
