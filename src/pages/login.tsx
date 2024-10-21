@@ -1,7 +1,7 @@
-import { Button, Checkbox, Label, TextInput } from "flowbite-react";
-import { FormEvent, useRef } from "react";
+import { Alert, Button, Checkbox, Label, TextInput } from "flowbite-react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { loginUser } from "../services/api_service";
+import { loginUser } from "../services/authservice";
 import Logo from "../components/Logo";
 
 export default function LoginForm() {
@@ -9,6 +9,16 @@ export default function LoginForm() {
   const passwordRef = useRef<HTMLInputElement>(null);
   const rememberRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
+
+  const [alert, setAlert] = useState<null | { message: string }>(null);
+
+  useEffect(() => {
+    if (alert) {
+      setTimeout(() => {
+        setAlert(null);
+      }, 1000);
+    }
+  }, [alert]);
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -19,17 +29,10 @@ export default function LoginForm() {
         passwordRef.current.value,
         rememberRef.current.checked,
       ).then((value) => {
-        if (value) {
-          if (!rememberRef.current?.checked) {
-            if (typeof value !== "boolean" && value.token) {
-              sessionStorage.setItem("token", value.token);
-            }
-          } else {
-            if (typeof value !== "boolean" && value.token) {
-              localStorage.setItem("token", value.token);
-            }
-          }
+        if (value && typeof value === "boolean") {
           navigate("/");
+        } else {
+          setAlert({ message: value });
         }
       });
     }
@@ -39,6 +42,7 @@ export default function LoginForm() {
     <div className="flex h-screen items-center justify-center">
       <div className="space-y-6">
         <Logo />
+        {alert && <Alert color="failure">{alert.message}</Alert>}
         <form className="flex max-w-md flex-col gap-4" onSubmit={handleSubmit}>
           <div>
             <div className="mb-2 block">
@@ -47,7 +51,7 @@ export default function LoginForm() {
             <TextInput
               id="email1"
               type="email"
-              placeholder="name@flowbite.com"
+              placeholder="example@example.com"
               required
               ref={emailRef}
             />
