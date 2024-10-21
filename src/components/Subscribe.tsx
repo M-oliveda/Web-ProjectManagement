@@ -1,6 +1,6 @@
 import { Label, Radio, Button } from "flowbite-react";
 import { FormEvent } from "react";
-import { subscribe } from "../services/api_service";
+import { subscribe } from "../services/subscriptionservice";
 import { useNavigate } from "react-router-dom";
 
 export default function Subscribe() {
@@ -10,7 +10,7 @@ export default function Subscribe() {
     e.preventDefault();
     const subscription_type = document.querySelector(
       'input[name="subscription_type"]:checked',
-    ).value;
+    )?.value;
 
     if (subscription_type) {
       subscribe(subscription_type).then((value) => {
