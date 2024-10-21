@@ -1,7 +1,7 @@
 import { Navbar, Button } from "flowbite-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Logo from "./Logo";
-import { logoutUser } from "../services/api_service";
+import { logoutUser } from "../services/authservice";
 
 export default function WebsiteHeader() {
   const navigate = useNavigate();
