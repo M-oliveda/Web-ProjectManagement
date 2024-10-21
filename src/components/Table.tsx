@@ -21,28 +21,30 @@ export function TableComponent({
         <Table.Body className="divide-y">
           {tableRows.map((row, index) => (
             <Table.Row key={index ** 4}>
-              {Object.keys(row).map((value) => (
-                <Table.Cell key={row[value]}>{row[value]}</Table.Cell>
-              ))}
-              <Table.Cell>
-                <Button
-                  disabled={!isSubscribe}
-                  onClick={() => onRowUpdate(row.id)}
-                >
-                  Update
-                </Button>
-              </Table.Cell>
-              <Table.Cell>
-                <Button
-                  disabled={!isSubscribe}
-                  onClick={() => onRowDelete(row.id)}
-                >
-                  Delete
-                </Button>
-              </Table.Cell>
+              {Object.keys(row)
+                .map((value) => (
+                  <Table.Cell key={row[value]}>{row[value]}</Table.Cell>
+                ))
+                .concat([
+                  <Table.Cell key={Math.random()}>
+                    <Button
+                      disabled={!isSubscribe}
+                      onClick={() => onRowUpdate(row.id)}
+                    >
+                      Update
+                    </Button>
+                  </Table.Cell>,
+                  <Table.Cell key={Math.random()}>
+                    <Button
+                      disabled={!isSubscribe}
+                      onClick={() => onRowDelete(row.id)}
+                    >
+                      Delete
+                    </Button>
+                  </Table.Cell>,
+                ])}
             </Table.Row>
           ))}
-          .
         </Table.Body>
       </Table>
     </div>
